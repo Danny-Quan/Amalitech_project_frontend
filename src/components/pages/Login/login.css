@@ -1,0 +1,99 @@
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.login--sec {
+  background-color: #fff;
+  height: 100vh;
+}
+.row {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.login--container {
+  padding: 3rem 1rem 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  width: 500px;
+  background-color: #080710;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(8, 7, 16, 0.6);
+  padding: 50px 35px;
+}
+form * {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+form h3 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+input {
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  
+}
+
+
+
+::placeholder {
+  color: #e5e5e5;
+}
+.submitBtn {
+  margin-top: 40px;
+  width: 100%;
+  background-color: dodgerblue;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.submitBtn span {
+  color: #080710;
+}
+.submitBtn:disabled,
+.submitBtn:disabled:hover {
+  background: #b6b6b6;
+  cursor: not-allowed;
+  border-color: #b6b6b6;
+  padding: 0.7rem 2rem;
+}
+.submitBtn:hover {
+  background-color: #b6b6b6;
+}
+
+@media only screen and (max-width: 510px) {
+  form {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
