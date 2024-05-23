@@ -7,12 +7,13 @@ function Navbar() {
   const navigate= useNavigate()
 
   return (
-    <nav className=" bg-blue-800 backdrop-blur-sm px-8 py-3 flex justify-between items-center">
+    <nav className=" bg-blue-600/90 backdrop-blur-sm px-8 py-3 flex justify-between items-center">
       <div className="brandName text-white  text-2xl font-extrabold tracking-widest">
         Lizzy
       </div>
       <div className="nav--links flex items-center gap-7 text-white">
         <NavLink to={'/'}>Home</NavLink>
+        <NavLink to={'/feeds'}>Feeds</NavLink>
         <p>Hi, Danny</p>
         <NavLink to={'/dashboard'} className=" border-b-[1px] border-white cursor-pointer">Profile</NavLink>
         {/* <p className=" border-b-[1px] border-white cursor-pointer">Profile</p> */}

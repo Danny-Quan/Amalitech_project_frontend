@@ -1,0 +1,35 @@
+th,
+td {
+  padding: 10px;
+}
+tr {
+  border-bottom: 1px solid rgb(196, 216, 216);
+}
+tbody td {
+  font-weight: 300;
+}
+tbody tr:hover{
+background-color: rgba(240, 155, 85, 0.082);
+}
+th {
+  color: rgb(36, 36, 83);
+  /* color: rgb(231, 53, 53); */
+}
+.add--file--form label {
+  color: #555;
+}
+.add--file--form input,
+.add--file--form textarea {
+  border: 2px solid rgb(196, 216, 216);
+  color: #111111;
+  font-weight: 400;
+  width: 100%;
+}
+.add--file--form textarea {
+  resize: none;
+  padding: 1rem;
+}
+fieldset {
+  border: 2px groove rgb(196, 216, 216);
+  padding: 1.5rem;
+}
