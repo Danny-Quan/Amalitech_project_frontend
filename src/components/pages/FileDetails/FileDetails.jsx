@@ -71,9 +71,20 @@ function FileDetails() {
       <section className="w-[60%] px-10 py-16 my-0 mx-auto">
         <div>
           <div className="flex justify-between items-center mb-5">
-            <h2 className="font-bold text-3xl mb-4">File Title Here</h2>
-            <p> size: 115kb</p>
+            <h2 className="font-semibold text-2xl mb-4">File Title Here</h2>
+            <p> <span className="font-semibold text-xl">size:</span> 115kb</p>
           </div>
+          <p className="text-left">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam,
+            consectetur cumque? Exercitationem, minus dolores labore aut
+            praesentium fuga laborum illum est! Aut esse qui doloremque ad,
+            obcaecati eveniet corporis in? Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Aliquam, consectetur cumque?
+            Exercitationem, minus dolores labore aut praesentium fuga laborum
+            illum est! Aut esse qui doloremque ad, obcaecati eveniet corporis
+            in?
+          </p> 
+          <br />
           <p className="text-justify">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam,
             consectetur cumque? Exercitationem, minus dolores labore aut
@@ -84,6 +95,7 @@ function FileDetails() {
             illum est! Aut esse qui doloremque ad, obcaecati eveniet corporis
             in?
           </p>
+          <br />
           <p className="text-justify">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam,
             consectetur cumque? Exercitationem, minus dolores labore aut
