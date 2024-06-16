@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./../Login/login.css";
 import { ClipLoader } from "react-spinners";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../store/Auth/AuthContext";
+import { toast } from "react-toastify";
 
 function Signup() {
-  const navigate= useNavigate()
+  const GLOBAL_CONTEXT = useContext(AuthContext);
+  const { isLoading, registerUser, resetGlobals } = GLOBAL_CONTEXT;
 
+  const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -19,10 +22,45 @@ function Signup() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    resetGlobals();
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setIsLoading(true);
+    if (
+      !formData.username ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      return toast.error("All fields are required");
+    }
+    if (formData.password !== formData.confirmPassword) {
+      return toast.error("Passwords do not match");
+    }
+    if (
+      !formData.email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      return toast.error("Please enter a valid email");
+    }
+    const Data = new FormData();
+    Data.append("username", formData.username);
+    Data.append("email", formData.email);
+    Data.append("password", formData.password);
+    Data.append("confirmPassword", formData.confirmPassword);
+
+    const userData = {
+      username: Data.get("username"),
+      email: Data.get("email"),
+      password: Data.get("password"),
+      confirmPassword: Data.get("confirmPassword"),
+    };
+    // console.log(formData);
+
+    await registerUser(userData);
   };
 
   return (
@@ -96,7 +134,14 @@ function Signup() {
 
             <div className="flex justify-between items-center pt-4">
               <p>Already have account?</p>
-              <p className="text-[dodgerblue] cursor-pointer" onClick={()=>{navigate('/login')}}>login here</p>
+              <p
+                className="text-[dodgerblue] cursor-pointer"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                login here
+              </p>
             </div>
           </form>
         </div>

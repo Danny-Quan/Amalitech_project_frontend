@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
 // import axios from "axios";
 import { ClipLoader } from "react-spinners";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../store/Auth/AuthContext";
+import { toast } from "react-toastify";
+
 
 function Login() {
-  const navigate= useNavigate()
+  const GLOBAL_CONTEXT = useContext(AuthContext);
+  const {isLoading,resetGlobals}=GLOBAL_CONTEXT
+  const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,10 +21,22 @@ function Login() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    resetGlobals();
+  },[navigate]);
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(formData);
-    setIsLoading(true)
+
+    if(!formData.email || !formData.password){
+      return toast.error('All fields are required')
+    }
+    const data = new FormData();
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    let userData={email:data.get("email"), password:data.get("password")};
+
+    await GLOBAL_CONTEXT.loginUser(userData)
   };
 
   return (
@@ -38,7 +54,6 @@ function Login() {
               id="email"
               value={formData.email}
               onChange={handleInputChange}
-              autoComplete={false}
             />
 
             <label htmlFor="password">Password</label>
@@ -76,7 +91,14 @@ function Login() {
 
             <div className="flex justify-between items-center pt-4">
               <p>Forgot password?</p>
-              <p className="text-[dodgerblue] cursor-pointer" onClick={()=>{navigate('/forgot-password')}}>reset here</p>
+              <p
+                className="text-[dodgerblue] cursor-pointer"
+                onClick={() => {
+                  navigate("/forgot-password");
+                }}
+              >
+                reset here
+              </p>
             </div>
           </form>
         </div>

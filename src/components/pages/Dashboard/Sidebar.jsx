@@ -7,11 +7,11 @@ function Sidebar() {
       <div>
         <ul>
           <li className="text-white py-3 px-3 text-xl hover:bg-blue-500/70 hover:transition-all">
-            <NavLink className={'flex'}>Dashboard</NavLink>
+            <NavLink className={'flex'} to={'/dashboard'}>Dashboard</NavLink>
           </li>
-          <li className="text-white py-3 px-3 mt-5 text-xl hover:bg-blue-500/70 hover:transition-all">
+          {/* <li className="text-white py-3 px-3 mt-5 text-xl hover:bg-blue-500/70 hover:transition-all">
             <NavLink className={'flex'}>Settings</NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
