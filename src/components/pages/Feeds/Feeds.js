@@ -167,7 +167,7 @@ function Feeds() {
                   <div className="buttons flex items-center gap-3 mt-7">
                     <Link
                       className="bg-blue-400/10 border-2 border-blue-400 px-3 py-1"
-                      to={encodeURI(`/feeds/${file._id}/${file.title}`)}
+                      to={encodeURI(`/feeds/${file._id}/${file?.title.replace('/','%')}`)}
                     >
                       Details
                     </Link>

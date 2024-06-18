@@ -11,6 +11,7 @@ import { AuthContext } from "../../../store/Auth/AuthContext";
 import Loader from "../../../Reusable/Loader";
 import { toast } from "react-toastify";
 import { AllFilesContext } from "../../../store/FileServices/FilesContext";
+import ReactPaginate from 'react-paginate';
 
 function Dashboard() {
   useRedirect("/login");
@@ -169,6 +170,22 @@ function Dashboard() {
     setFilteredItems(items);
   }, [searchData, Files]);
 
+    //pagination here
+    const itemsPerPage = 6;
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = filteredItems?.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredItems?.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+      const newOffset =
+        (event.selected * itemsPerPage) % filteredItems?.length;
+      setItemOffset(newOffset);
+    };
+    //pagination ends here
+
   return (
     <>
       {isLoading && <Loader />}
@@ -255,7 +272,7 @@ function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredItems?.map((file) => (
+                  {currentItems?.map((file) => (
                     <tr key={file._id}>
                       <td>
                         {new Date(file.createdAt).toLocaleString("en-US", {
@@ -293,6 +310,26 @@ function Dashboard() {
                 </tbody>
               </table>
             </div>
+              {/* pagination here */}
+              {currentItems?.length >0 &&
+              <div className="pagination mt-8">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="Next"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="Prev"
+                renderOnZeroPageCount={null}
+                containerClassName="pagination"
+                pageLinkClassName="page-num"
+                previousLinkClassName="page-num"
+                nextLinkClassName="page-num"
+                activeLinkClassName="activePage"
+              />
+            </div>
+              }
+              {/* pagination ends here */}
           </div>
         </div>
       </main>

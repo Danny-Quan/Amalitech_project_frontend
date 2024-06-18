@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <nav className=" bg-blue-600/90 backdrop-blur-sm px-8 py-3 flex justify-between items-center">
       <div className="brandName text-white  text-2xl font-extrabold tracking-widest">
-        Lizzy
+        Lizzy's File Hub
       </div>
       <div className="nav--links flex items-center gap-7 text-white">
         <NavLink to={"/"}>Home</NavLink>

@@ -138,12 +138,12 @@ function FilesContext({ children }) {
       if (response) {
         dispatch({ type: ON_FULFILLED });
         // toast.success('file uploaded successfully')
-        console.log(response);
+        // console.log(response);
       }
       return response.data;
     } catch (error) {
       dispatch({ type: ON_REJECTED });
-      console.log(error);
+      // console.log(error);
       if (error && error.response) {
         toast.error(error.response.data.message);
       } else {

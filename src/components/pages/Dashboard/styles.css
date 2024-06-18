@@ -33,3 +33,24 @@ fieldset {
   border: 2px groove rgb(196, 216, 216);
   padding: 1.5rem;
 }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  justify-content: center;
+}
+.page-num {
+  border: 1px solid gray;
+  padding: 6px 10px;
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+  background-color: #086581;
+}
+.page-num:hover {
+  background-color: #086581b4;
+}
+.activePage {
+  background-color: rgba(46, 162, 225, 0.736);
+}
