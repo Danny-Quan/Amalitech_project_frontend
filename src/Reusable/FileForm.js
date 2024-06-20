@@ -20,7 +20,7 @@ function FileForm({
     }
   };
   return (
-    <div className=" p-5 my-5 mx-auto text-slate-800 w-screen h-screen flex items-center justify-center bg-black/40 mt-0 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none transition-colors">
+    <div className=" p-5 my-5 mx-auto text-slate-800 w-screen h-screen flex items-center justify-center bg-black/40 mt-0 overflow-x-hidden overflow-y-auto fixed inset-0 z-20 outline-none focus:outline-none transition-colors">
       <form
         className="add--file--form bg-white w-[50%] p-5"
         onSubmit={handleSubmit}

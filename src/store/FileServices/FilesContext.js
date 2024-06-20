@@ -156,13 +156,15 @@ function FilesContext({ children }) {
   const downloadFile = async (fileId, filename) => {
     dispatch({ type: ON_PENDING });
     try {
-      const response = await axios.get(`/files/download/${fileId}/${filename}`);
+      const response = await axios.get(`/files/download/${fileId}/${filename}`,{
+        responseType:'blob'
+      });
       if (response) {
         dispatch({ type: ON_FULFILLED });
         // toast.success('file uploaded successfully')
         // console.log(response);
       }
-      return;
+      return response;
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error);

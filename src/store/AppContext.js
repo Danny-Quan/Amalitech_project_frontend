@@ -38,9 +38,14 @@ export const AppContext = ({ children }) => {
       }
       return response;
     } catch (error) {
-      // console.log(error)
-      toast.error(error.message);
+      console.log(error);
       dispatch({ type: ON_REJECTED });
+
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -65,7 +70,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -112,7 +121,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -137,7 +150,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -162,7 +179,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -186,7 +207,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -207,7 +232,11 @@ export const AppContext = ({ children }) => {
     } catch (error) {
       dispatch({ type: ON_REJECTED });
       // console.log(error.response.data.message)
-      toast.error(error.response.data.message);
+      if (error && error.response) {
+        toast.error(error.response.data.message ?? error.response.data);
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 

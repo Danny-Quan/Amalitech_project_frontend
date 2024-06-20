@@ -16,7 +16,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Search from "./components/pages/Search";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
+axios.defaults.baseURL = "https://amalitech-lizzy-file-hub.onrender.com/api/v1";
+// axios.defaults.baseURL= "http://127.0.0.1:8000/api/v1"
 axios.defaults.withCredentials = true;
 
 function App() {

@@ -21,11 +21,16 @@ function Feeds() {
     downloadFile,
   } = FILES_CONTEXT;
 
-  const { activeUser, isLoading, sendVerificationEmail, resetGlobals } =
-    GLOBAL_CONTEXT;
+  const {
+    isLoggedIn,
+    activeUser,
+    isLoading,
+    sendVerificationEmail,
+    resetGlobals,
+  } = GLOBAL_CONTEXT;
 
   const [feedSearch, setFeedSearch] = useState("");
-  const [showAlert, setShowAlert] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [Files, setFiles] = useState(allFiles);
 
   const submitSearch = (e) => {
@@ -52,14 +57,28 @@ function Feeds() {
   }, [allFiles]);
 
   useEffect(() => {
-    if (activeUser && activeUser.isVerified === undefined) {
-      setShowAlert(false);
-    } else if (activeUser && !activeUser.isVerified) {
-      setShowAlert(true);
+    if(isLoggedIn){
+      if (activeUser && activeUser.isVerified) {
+        setShowAlert(false);
+      } else if (activeUser && !activeUser.isVerified) {
+        setShowAlert(true);
+      }
     }
-  }, [activeUser]);
-  const string =
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet adipisci esse ipsum";
+  }, [activeUser,isLoggedIn]);
+
+  const handleDownload= async function(id,filename){
+    const response= await downloadFile(id,filename);
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename; 
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }
+
   return (
     <React.Fragment>
       {file_isLoading && <Loader />}
@@ -90,8 +109,9 @@ function Feeds() {
                   <span className="font-bold">Info:</span>
                   &nbsp; &nbsp; Your account is not{" "}
                   <span className="font-semibold">Activated</span> and as a
-                  result you cannot download a file or send a file to someone. Please click the button
-                  below to receive an email for the activation
+                  result you cannot download a file or send a file to someone.
+                  Please click the button below to receive an email for the
+                  activation
                 </p>
                 <button
                   className="border-blue-400 bg-white hover:bg-gray-50 px-4 py-2 mt-4 border rounded font-bold"
@@ -167,19 +187,18 @@ function Feeds() {
                   <div className="buttons flex items-center gap-3 mt-7">
                     <Link
                       className="bg-blue-400/10 border-2 border-blue-400 px-3 py-1"
-                      to={encodeURI(`/feeds/${file._id}/${file?.title.replace('/','%')}`)}
+                      to={encodeURI(
+                        `/feeds/${file._id}/${file?.title.replace("/", "%")}`
+                      )}
                     >
                       Details
                     </Link>
                     <button
-                      onClick={async () => {
-                        await downloadFile(file._id, file.filePath);
-                        return;
-                      }}
+                      onClick={()=>handleDownload(file._id, file.fileName)}
+                      disabled={file_isLoading}
+                      className="flex gap-2 items-center text-center bg-blue-400/10 border-2 border-blue-400 px-3 py-1"
                     >
-                      <Link className="flex gap-2 items-center text-center bg-blue-400/10 border-2 border-blue-400 px-3 py-1">
                         Download <MdOutlineFileDownload />
-                      </Link>
                     </button>
                   </div>
                 </div>

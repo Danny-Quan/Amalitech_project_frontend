@@ -7,7 +7,7 @@ const override = {
 
 function Loader() {
   return (
-    <div className="sweet-loading flex items-center justify-center w-full h-screen bg-black/25 fixed z-50" >
+    <div className="sweet-loading flex items-center justify-center w-full h-screen bg-black/25 fixed z-[999]" >
       <BounceLoader
         color={"dodgerblue"}
         // loading={loading}

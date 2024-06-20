@@ -11,7 +11,7 @@ import { AuthContext } from "../../../store/Auth/AuthContext";
 import Loader from "../../../Reusable/Loader";
 import { toast } from "react-toastify";
 import { AllFilesContext } from "../../../store/FileServices/FilesContext";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 function Dashboard() {
   useRedirect("/login");
@@ -26,7 +26,7 @@ function Dashboard() {
     allFiles,
     getSingleFile,
     deleteFile,
-    updateFile
+    updateFile,
   } = FILES_CONTEXT;
   const { isLoading } = GLOBAL_CONTEXT;
 
@@ -48,7 +48,6 @@ function Dashboard() {
   const [fileDeleted, setFileDeleted] = useState(false);
   const [fileAdded, setFileAdded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
-  const [editClicked, setEditClicked] = useState(false);
 
   //getAllFiles
   const get_FilesFromDB = async () => {
@@ -92,6 +91,7 @@ function Dashboard() {
   useEffect(() => {
     resetFileGlobals();
   }, []);
+
   useEffect(() => {
     if (file_isSuccess) {
       setShowModal(false);
@@ -118,29 +118,17 @@ function Dashboard() {
   //handle edit click
   const handleEdit = async (id) => {
     let feed = await getSingleFile(id);
-    setEditClicked(true);
+    setEditFileData((prev) => ({
+      ...prev,
+      title: feed?.singleFile?.title,
+      description: feed?.singleFile?.description,
+      file: feed?.singleFile?.filePath,
+    }));
     return feed;
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      if (editClicked) {
-        const feedData = await handleEdit(fileId);
-        // console.log(feedData)
-        setEditFileData((prev) => ({
-          ...prev,
-          title: feedData?.singleFile?.title,
-          description: feedData?.singleFile?.description,
-          file: feedData?.singleFile?.filePath,
-        }));
-      }
-    };
-    getData();
-    setEditClicked(false);
-  }, [editClicked]);
-
   //handle edited file
-  const handleEditFileSubmit = async(e) => {
+  const handleEditFileSubmit = async (e) => {
     e.preventDefault();
     if (
       !editFileData.title ||
@@ -155,7 +143,7 @@ function Dashboard() {
     editData.append("filePath", editFileData.file);
     // console.log(Array.from(editData) );
 
-    await updateFile(fileId,editData);
+    await updateFile(fileId, editData);
     setFileAdded(true);
     setShowModal(false);
   };
@@ -170,21 +158,20 @@ function Dashboard() {
     setFilteredItems(items);
   }, [searchData, Files]);
 
-    //pagination here
-    const itemsPerPage = 6;
-    const [itemOffset, setItemOffset] = useState(0);
-  
-    const endOffset = itemOffset + itemsPerPage;
-    const currentItems = filteredItems?.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(filteredItems?.length / itemsPerPage);
-  
-    // Invoke when user click to request another page.
-    const handlePageClick = (event) => {
-      const newOffset =
-        (event.selected * itemsPerPage) % filteredItems?.length;
-      setItemOffset(newOffset);
-    };
-    //pagination ends here
+  //pagination here
+  const itemsPerPage = 6;
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = filteredItems?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(filteredItems?.length / itemsPerPage);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredItems?.length;
+    setItemOffset(newOffset);
+  };
+  //pagination ends here
 
   return (
     <>
@@ -310,26 +297,26 @@ function Dashboard() {
                 </tbody>
               </table>
             </div>
-              {/* pagination here */}
-              {currentItems?.length >0 &&
+            {/* pagination here */}
+            {currentItems?.length > 0 && (
               <div className="pagination mt-8">
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel="Next"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel="Prev"
-                renderOnZeroPageCount={null}
-                containerClassName="pagination"
-                pageLinkClassName="page-num"
-                previousLinkClassName="page-num"
-                nextLinkClassName="page-num"
-                activeLinkClassName="activePage"
-              />
-            </div>
-              }
-              {/* pagination ends here */}
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel="Next"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={5}
+                  pageCount={pageCount}
+                  previousLabel="Prev"
+                  renderOnZeroPageCount={null}
+                  containerClassName="pagination"
+                  pageLinkClassName="page-num"
+                  previousLinkClassName="page-num"
+                  nextLinkClassName="page-num"
+                  activeLinkClassName="activePage"
+                />
+              </div>
+            )}
+            {/* pagination ends here */}
           </div>
         </div>
       </main>

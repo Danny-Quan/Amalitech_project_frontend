@@ -14,6 +14,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { AllFilesContext } from "../../../store/FileServices/FilesContext";
 import Loader from "../../../Reusable/Loader";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 function FileDetails() {
   const { id } = useParams();
@@ -70,6 +71,20 @@ function FileDetails() {
     setEmail("");
   };
 
+  //download handler
+  const handleDownload = async function (id, filename) {
+    const response = await downloadFile(id, filename);
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div>
       <React.Fragment>
@@ -116,8 +131,28 @@ function FileDetails() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" onClick={sendFileToReceiver}>
-              Send file
+            <Button
+              type="submit"
+              onClick={sendFileToReceiver}
+              disabled={file_isLoading}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "1rem",
+                backgroundColor: "dodgerblue",
+              }}
+            >
+              {file_isLoading ? (
+                <>
+                  <span style={{ marginTop: "8px" }}>
+                    <ClipLoader color="#fff" size={20} />
+                  </span>{" "}
+                  <span>Sending...</span>
+                </>
+              ) : (
+                <span>Send File</span>
+              )}
             </Button>
           </DialogActions>
         </Dialog>
@@ -152,17 +187,16 @@ function FileDetails() {
             </button>
 
             <button
-              onClick={async () => {
-                await downloadFile(
+              onClick={() => {
+                handleDownload(
                   singleFeed?.singleFile?._id,
-                  singleFeed?.singleFile?.filePath
+                  singleFeed?.singleFile?.fileName
                 );
               }}
+              className="flex gap-2 items-center text-center bg-blue-400/10 border-2 border-blue-400 px-3 py-1"
             >
-              <Link className="flex gap-2 items-center text-center bg-blue-400/10 border-2 border-blue-400 px-3 py-1">
-                <MdOutlineFileDownload size={20} />
-                Download
-              </Link>
+              <MdOutlineFileDownload size={20} />
+              Download
             </button>
           </div>
         </div>
