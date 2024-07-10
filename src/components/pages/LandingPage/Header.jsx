@@ -19,7 +19,7 @@ function Header() {
   const navigate = useNavigate();
 
   return (
-    <header>
+    <header className="pt-10">
       <div className="row header--container">
         <div className="my--container">
           <div className="header">
@@ -32,7 +32,7 @@ function Header() {
               </Tilt>
             </div>
             <div className="header--content">
-              <h1 className="text-4xl font-semibold">
+              <h1 className="text-4xl font-semibold max-md:text-2xl max-md:mt-8 max-sm:xl">
                 Secure File Sharing & <br /> Storage
               </h1>
               <p>
@@ -52,7 +52,7 @@ function Header() {
                   Browse Files
                 </button>
                 <button
-                  className="text-center bg-blue-700 px-6 py-3 rounded-sm text-white tracking-wider"
+                  className="text-center bg-blue-700 md:px-6 md:py-3 px-3 py-2 rounded-sm text-white tracking-wider"
                   onClick={() => {
                     navigate("/signup");
                   }}

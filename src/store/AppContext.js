@@ -114,7 +114,7 @@ export const AppContext = ({ children }) => {
         dispatch({ type: ON_FULFILLED_SIGNUP, payload: response.data });
         toast.success("User registered successfully");
         window.setTimeout(() => {
-          navigate("/", { replace: true });
+          navigate("/login", { replace: true });
         }, 1500);
       }
       return;

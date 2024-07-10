@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../store/Auth/AuthContext";
 
@@ -10,10 +11,16 @@ function Navbar() {
   const GLOBAL_STATE = useContext(AuthContext);
   const { isLoggedIn, activeUser } = GLOBAL_STATE;
 
+  const [openNav,setOpenNav]= useState(false)
+  const handleToggle=()=>{
+    const Nav= document.querySelector('.nav--links')
+    Nav.classList.toggle('nav--active')
+    setOpenNav(!openNav)
+  }
   return (
-    <nav className=" bg-blue-600/90 backdrop-blur-sm px-8 py-3 flex justify-between items-center">
+    <nav className=" bg-blue-600 backdrop-blur-sm px-8 py-5 flex justify-between items-center z-[99] fixed w-full">
       <div className="brandName text-white  text-2xl font-extrabold tracking-widest">
-        Lizzy's File Hub
+        Lizzy's
       </div>
       <div className="nav--links flex items-center gap-7 text-white">
         <NavLink to={"/"}>Home</NavLink>
@@ -48,6 +55,9 @@ function Navbar() {
             Login <CiLogin size={23} />
           </button>
         )}
+      </div>
+      <div className="hamburger md:hidden" onClick={handleToggle}>
+      <RxHamburgerMenu color="white" size={30}/>
       </div>
     </nav>
   );

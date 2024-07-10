@@ -20,9 +20,9 @@ function FileForm({
     }
   };
   return (
-    <div className=" p-5 my-5 mx-auto text-slate-800 w-screen h-screen flex items-center justify-center bg-black/40 mt-0 overflow-x-hidden overflow-y-auto fixed inset-0 z-20 outline-none focus:outline-none transition-colors">
+    <div className=" p-5 my-5 mx-auto text-slate-800 w-screen h-screen flex items-center justify-center bg-black/40 mt-0 overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none transition-colors ">
       <form
-        className="add--file--form bg-white w-[50%] p-5"
+        className="add--file--form bg-white w-[50%] p-5 max-md:w-[90%] max-sm:w-[100%]"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
@@ -41,10 +41,11 @@ function FileForm({
             rows={5}
             value={inputValue.description}
             onChange={handleChange}
+            className="text-wrap"
           ></textarea>
           <label
             htmlFor="file--upload"
-            className="cursor-pointer flex gap-3 items-center justify-center rounded-sm p-2 bg-blue-600 w-[40%]"
+            className="cursor-pointer flex gap-3 items-center justify-center rounded-sm p-2 bg-blue-600 w-[40%] max-md:w-[60%] max-sm:w-[80%]"
           >
             <IoCloudUploadOutline size={40} color="black" />
             <span className="text-white">Upload File</span>
@@ -58,7 +59,7 @@ function FileForm({
             file={inputValue.file}
             onChange={handleChange}
           />
-          <p className="text-gray-900 text-sm mt-4">
+          <p className="text-gray-900 text-sm mt-4 text-wrap">
             {inputValue?.file?.name ?? inputValue?.file}
           </p>
           <div className="text-right flex gap-5 items-center justify-end mt-5">

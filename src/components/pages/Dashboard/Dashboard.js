@@ -12,6 +12,7 @@ import Loader from "../../../Reusable/Loader";
 import { toast } from "react-toastify";
 import { AllFilesContext } from "../../../store/FileServices/FilesContext";
 import ReactPaginate from "react-paginate";
+import Footer from "../LandingPage/Footer";
 
 function Dashboard() {
   useRedirect("/login");
@@ -122,7 +123,7 @@ function Dashboard() {
       ...prev,
       title: feed?.singleFile?.title,
       description: feed?.singleFile?.description,
-      file: feed?.singleFile?.filePath,
+      file: feed?.singleFile?.fileName,
     }));
     return feed;
   };
@@ -178,11 +179,11 @@ function Dashboard() {
       {isLoading && <Loader />}
       {file_isLoading && <Loader />}
       <Navbar />
-      <main className="bg-black/20 flex">
-        <div className="w-[20%] bg-slate-700 h-[92vh] ">
+      <main className="bg-black/20 flex pt-[4.4rem] max-sm:pt-[4.5rem]">
+        <div className="w-[20%] bg-slate-700 h-[92vh] max-md:hidden">
           <Sidebar />
         </div>
-        <div className="dashbaord dash--content w-[80%] bg-slate-100 ">
+        <div className="dashbaord dash--content w-[80%] bg-slate-100 max-md:w-[100%]">
           <div className="flex gap-5 items-center bg-white px-5 py-3 shadow-sm">
             <div className="border-2 border-slate-200 p-2 rounded-md">
               <LuFileStack size={25} />
@@ -240,15 +241,15 @@ function Dashboard() {
               />
 
               <button
-                className="bg-slate-100 px-4 py-2 border-2 border-slate-500 rounded-sm hover:bg-slate-200 "
+                className="bg-slate-100 px-4 py-2 max-md:py-1 max-md:px-2 border-2 border-slate-500 rounded-sm hover:bg-slate-200"
                 onClick={() => setShowModal(true)}
               >
                 + Add File
               </button>
             </div>
             {/* table */}
-            <div className="mt-5">
-              <table className="w-[100%] text-left">
+            <div className="mt-5 max-md:overflow-x-scroll">
+              <table className="w-[100%] text-left max-md:overflow-x-scroll">
                 <thead>
                   <tr className="py-2 px-2 bg-blue-200/70">
                     <th className="font-medium text-sm">Date</th>
@@ -268,7 +269,7 @@ function Dashboard() {
                           year: "2-digit",
                         })}
                       </td>
-                      <td>{file.title}</td>
+                      <td className="capitalize">{file.title}</td>
                       <td>{file.downloads}</td>
                       <td>{file.emailsSent}</td>
                       <td className="flex gap-2 items-center">
@@ -320,6 +321,7 @@ function Dashboard() {
           </div>
         </div>
       </main>
+      <Footer/>
     </>
   );
 }

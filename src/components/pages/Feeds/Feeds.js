@@ -67,24 +67,31 @@ function Feeds() {
   }, [activeUser,isLoggedIn]);
 
   const handleDownload= async function(id,filename){
-    const response= await downloadFile(id,filename);
+    try {
+      const response= await downloadFile(id,filename);
 
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename; 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+      if(response && response.data){
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename; 
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+   
   }
 
   return (
     <React.Fragment>
       {file_isLoading && <Loader />}
       {isLoading && <Loader />}
-      <div className="bg-slate-50">
         <Navbar />
+      <div className="bg-slate-50 pt-24">
 
         {/* sweet alert here */}
         {showAlert ? (
@@ -144,15 +151,15 @@ function Feeds() {
         ) : null}
 
         {/* sweet alert ends here */}
-        <div className="row feeds ">
-          <div className="container mt-5 mb-5">
+        <div className="row feeds">
+          <div className="container mt-0 mb-5">
             <div className=" feeds--form relative">
-              <div className="absolute left-[22%] top-[25%]">
+              <div className="absolute left-[22%] top-[25%] max-md:left-[13%] max-sm:left-[7%]">
                 <CiSearch size={25} />
               </div>
               <form onSubmit={submitSearch}>
                 <input
-                  className="w-[100%] px-20"
+                  className="w-[100%] px-20 max-md:px-12"
                   type="search"
                   name="search"
                   value={feedSearch}

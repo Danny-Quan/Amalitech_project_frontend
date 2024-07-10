@@ -156,9 +156,12 @@ function FilesContext({ children }) {
   const downloadFile = async (fileId, filename) => {
     dispatch({ type: ON_PENDING });
     try {
-      const response = await axios.get(`/files/download/${fileId}/${filename}`,{
-        responseType:'blob'
-      });
+      const response = await axios.get(
+        `/files/download/${fileId}/${filename}`,
+        {
+          responseType: "blob",
+        }
+      );
       if (response) {
         dispatch({ type: ON_FULFILLED });
         // toast.success('file uploaded successfully')
@@ -167,7 +170,12 @@ function FilesContext({ children }) {
       return response;
     } catch (error) {
       dispatch({ type: ON_REJECTED });
-      // console.log(error);
+      console.log(error);
+      if (error.response.status === 401) {
+        return toast.error("Please activate your account to continue");
+      } else if (error.response.status === 500) {
+        return toast.error("An Error occurred");
+      }
       if (error && error.response) {
         toast.error(error.response.data.message);
       } else {

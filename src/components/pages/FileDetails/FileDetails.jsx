@@ -73,16 +73,22 @@ function FileDetails() {
 
   //download handler
   const handleDownload = async function (id, filename) {
-    const response = await downloadFile(id, filename);
+    try {
+      const response= await downloadFile(id,filename);
 
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+      if(response && response.data){
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename; 
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -103,7 +109,7 @@ function FileDetails() {
               handleClose();
             },
           }}
-          className="w-[50%] my-0 mx-auto"
+          className="w-[50%] my-0 mx-auto max-md:w-[80%] max-sm:w-[100%]"
         >
           <DialogTitle className="text-gray-600 capitalize">
             Send File to Email
@@ -159,7 +165,7 @@ function FileDetails() {
       </React.Fragment>
 
       <Navbar />
-      <section className="w-[60%] px-10 py-16 my-0 mx-auto">
+      <section className="w-[60%] px-10 py-16 my-0 mx-auto pt-32 max-md:w-[80%] max-sm:w-[100%]">
         <div>
           <div className="flex justify-between items-center mb-5">
             <h2 className="font-semibold text-2xl mb-4 capitalize">
@@ -178,11 +184,11 @@ function FileDetails() {
           <p className="text-left">{singleFeed?.singleFile?.description}</p>
           <br />
 
-          <div className="buttons flex items-center gap-5 mt-12">
+          <div className="buttons md:flex items-center gap-5 mt-12">
             <button onClick={handleClickOpen}>
               <Link className=" bg-blue-400/10 border-2 border-blue-400 px-3 py-1 flex gap-2 items-center">
                 <AiOutlineMail size={20} />
-                Send to Email
+                Send Email
               </Link>
             </button>
 

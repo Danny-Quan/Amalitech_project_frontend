@@ -11,6 +11,7 @@ form input[type="search"]{
 }
 .file--card--container{
    display: grid;
+   /* grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); */
    grid-template-columns: repeat(4,1fr);
    column-gap: 1rem;
    row-gap: 2rem;
@@ -24,4 +25,23 @@ form input[type="search"]{
    padding: 2rem 1rem;
    border-radius: 5px;
    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.048);
+}
+
+@media only screen and (max-width:678px){
+.file--card--container{
+   grid-template-columns: repeat(2,1fr);
+}
+.feeds form{
+   width: 80%;
+}
+
+}
+@media only screen and (max-width:510px){
+   .file--card--container{
+   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+}
+.feeds form{
+   width: 100%;
+   margin: 0 auto;
+}
 }

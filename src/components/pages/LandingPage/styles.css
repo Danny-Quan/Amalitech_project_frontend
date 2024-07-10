@@ -32,6 +32,7 @@ header::after {
   z-index: -1;
 }
 
+
 .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -43,6 +44,9 @@ header::after {
   margin-bottom: 3%;
   width: 100%;
 }
+
+
+
 .header--container {
   position: relative;
 }
@@ -65,4 +69,33 @@ footer p {
 }
 button {
   cursor: pointer;
+}
+
+
+/* media queries here */
+@media only screen and (max-width:678px){
+  .header{
+    display: block;
+  }
+  .buttons{
+    display: flex;
+  }
+  .nav--links{
+    flex-direction: column;
+    align-items: flex-start;
+    position:absolute;
+    left: 0;
+    top: 100%;
+    background-color: #2096f3;
+    width: 80%;
+    height: 100dvh;
+    z-index: 99;
+    text-align: left;
+    padding: 5rem 2rem;
+    transform: translateX(-100%);
+    transition: all 0.3s ease-in;
+  }
+  .nav--active{
+    transform: translateX(0%);
+  }
 }

@@ -29,7 +29,7 @@ function Search() {
       {file_isLoading && <Loader />}
       <div className="bg-slate-50">
         <Navbar />
-        <div className="container p-8 mt-8">
+        <div className="container p-8 pt-32">
           <h3 className="font-semibold text-xl pb-3">Files Found</h3>
           {searchedFeeds?.files?.length >0?
                <>   
